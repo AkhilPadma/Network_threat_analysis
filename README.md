@@ -54,7 +54,12 @@ for example we can see for source port 0 in block 2 the bytes recieved is much g
 For uncommon IP's : 
  We calculated source ports counts and the one which are less than 5 were flagged as uncommon IP's
 
+
 so after all this we have now created rules for intrusion,malware,spike and uncommon IP's now we created a new column known as threat_flag it will show whether it is threat or not
+
+After training normally on various algorithms of classification i found out that is_threat = 0 is falling in minority so i used oversampling techniques i.e **SMOTE** for this and model improved its perfomance among them best model coming out was RF .
+
+DashBoard for visulaizing different netwoek threats for 1hr,12hr,24hr : https://networkthreatanalysis-5zauduqwqexr6zizdnkqym.streamlit.app/
 
 
 
