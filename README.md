@@ -3,13 +3,6 @@
 
 Network threats are malicious activities or suspicious behaviors that compromise the security, reliability, or performance of a computer network. These threats can come from external attackers, malware, or even misconfigured systems within the network.
 
-A network threat can lead to:
-
-1.Unauthorized access to sensitive information
-2.Disruption of services (DoS/DDoS attacks)
-3.Propagation of malware or ransomware
-4.Exfiltration or corruption of data
-
 So understanding and detecting these threats is critical to protecting modern IT infrastructures.
 
 **Common Types of Network Threats (Explained Simply)**
