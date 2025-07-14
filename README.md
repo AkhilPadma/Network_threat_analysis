@@ -23,6 +23,38 @@ Our dataset is a cleaned and pre-processed version of a firewall log containing 
 
 <img width="750" height="691" alt="image" src="https://github.com/user-attachments/assets/339aceaa-1300-426b-b67d-2b9874cdec25" />
 
+We addressed this problem by developing scores for each Threat type since each threat is depending on multiple things : 
+For Intrusion : 
+ | Rule Condition                            | Score | Reason                     |
+| ----------------------------------------- | ----- | -------------------------- |
+| `Action == deny/drop`                     | +2    | Firewall flagged it        |
+| `Destination Port in [3389, 22, 23, 445]` | +2    | Common attack ports        |
+| `pkts_received == 0`                      | +1    | Possibly failed attack     |
+| `Elapsed Time == 0 & Bytes > 0`           | +3    | Bot-like behavior          |
+| `Bytes Received == 0 & Bytes Sent > 0`    | +2    | Data exfil suspicion       |
+| `Packets <= 1`                            | +1    | Suspicious minimal traffic |
+
+
+For malware : 
+
+| Pattern                                          | Why It’s Suspicious         |
+| ------------------------------------------------ | --------------------------- |
+| **Allow + Very short Elapsed Time + High Bytes** | Sudden data upload/download |
+| **Unusual port** + **High packets**              | Hidden communication        |
+| **Same Source Port & Dest Port (loopback)**      | Port hijack, VPN tunneling  |
+
+
+For Spike detection : 
+ we created new time stamps column since we didn't originally have in the column and then calculated for bytes for particular port in each time block and then evaluated deviation's if it was deviating much we flagged it as 1 if not 0
+
+<img width="385" height="232" alt="image" src="https://github.com/user-attachments/assets/f0800ff6-ab1e-491c-b2de-f0a35e72e2cc" />
+
+for example we can see for source port 0 in block 2 the bytes recieved is much greater than rest of them so we will flag this as traffic_spike usually in network analysis
+
+For uncommon IP's : 
+ We calculated source ports counts and the one which are less than 5 were flagged as uncommon IP's
+
+so after all this we have now created rules for intrusion,malware,spike and uncommon IP's now we created a new column known as threat_flag it will show whether it is threat or not
 
 
 
