@@ -3,10 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-# Optional CSV upload
-st.sidebar.title("Upload CSV (optional)")
-uploaded_file = st.sidebar.file_uploader("Upload threat dataset CSV", type="csv")
-
 # Use absolute path for fallback file
 default_path = os.path.join(os.path.dirname(__file__), "final_threat_dataset.csv")
 
