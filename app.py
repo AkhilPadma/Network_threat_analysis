@@ -76,12 +76,23 @@ if 'rare_ip' in df.columns:
 # Bar chart
 st.subheader(f"{threat_type.replace('_', ' ').title()} Over Time ({timeframe})")
 summary = df.groupby(df[timeframe])[threat_type].sum()
-fig, ax = plt.subplots()
-summary.plot(kind='bar', ax=ax, color='steelblue')
+import matplotlib.dates as mdates
+
+fig, ax = plt.subplots(figsize=(12, 5))
+summary.plot(kind='bar', ax=ax, color='steelblue', width=0.8)
+
+# Format X-axis
 ax.set_ylabel("Count")
 ax.set_xlabel("Time")
 ax.set_title(f"{threat_type.replace('_', ' ').title()} per {timeframe}")
+ax.tick_params(axis='x', rotation=45)
+
+# Optional: limit number of ticks
+if len(summary.index) > 20:
+    ax.set_xticks(ax.get_xticks()[::len(summary.index)//20])
+
 st.pyplot(fig)
+
 
 # Logs Table
 st.subheader("Detailed Logs")
